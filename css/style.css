@@ -186,6 +186,10 @@ th {
     font-size: 13px;
 }
 
+.compact-mode .staff-list-container {
+    font-size: 10px !important;
+}
+
 .loading-spinner {
     display: inline-block;
     width: 1rem;
@@ -209,4 +213,15 @@ th {
 
 .sync-status.active {
     color: #28a745;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        display: block;
+    }
+
+    body * {
+        font-size: 15px !important;
+    }
+
 }
