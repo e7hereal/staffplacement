@@ -67,7 +67,6 @@ body {
     display: inline-block;
     font-size: 13px;
     transition: all 0.2s;
-    border-left: 3px solid var(--accent-color);
 }
 
 .employee:hover {
@@ -168,9 +167,9 @@ th {
 }
 
 .compact-mode .employee {
-    padding: 3px 6px;
-    font-size: 12px;
-    margin: 2px;
+    padding: 0px 5px;
+    font-size: 10px;
+    margin: 1px;
 }
 
 .compact-mode .dropzone {
@@ -180,6 +179,7 @@ th {
 
 .compact-mode th, .compact-mode td {
     padding: 5px;
+    font-size: 15px;
 }
 
 .compact-mode .section-title {
