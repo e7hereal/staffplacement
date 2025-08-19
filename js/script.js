@@ -728,6 +728,18 @@ function initModals() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const staffContainer = document.querySelector('.staff-list-container');
+    const toggleBtn = document.getElementById('toggleStaffList');
+    const icon = toggleBtn.querySelector('i');
+
+    toggleBtn.addEventListener('click', () => {
+        staffContainer.classList.toggle('open');
+        icon.classList.toggle('bi-chevron-up');
+        icon.classList.toggle('bi-chevron-down');
+    });
+});
+
 // Инициализация приложения
 function init() {
     initAssignmentTable();

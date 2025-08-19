@@ -225,24 +225,9 @@ th {
     }
 
     body * {
-        font-size: 15px !important;
+        font-size: 12px !important;
     }
 
-}
-
-/* Основной контейнер с кнопками и счетчиками */
-.d-flex.align-items-center {
-    flex-wrap: wrap; /* разрешаем перенос элементов */
-    gap: 6px;        /* небольшой отступ между элементами */
-}
-
-/* Чтобы счетчики не ломались */
-.total-counter, #syncStatus {
-    white-space: nowrap;
-}
-
-/* Уменьшаем кнопки на мобилках и уменьшаем отступы */
-@media (max-width: 768px) {
     .d-flex.align-items-center {
         justify-content: flex-start; /* выравниваем по левому краю */
     }
@@ -257,4 +242,53 @@ th {
         font-size: 12px;
         margin-bottom: 4px; /* немного снизу для переноса */
     }
+
+    .staff-list-container {
+        position: fixed;
+        bottom: -250px !important;
+    }
+}
+
+/* Основной контейнер с кнопками и счетчиками */
+.d-flex.align-items-center {
+    flex-wrap: wrap; /* разрешаем перенос элементов */
+    gap: 6px;        /* небольшой отступ между элементами */
+}
+
+/* Чтобы счетчики не ломались */
+.total-counter, #syncStatus {
+    white-space: nowrap;
+}
+
+.staff-list-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -250px;
+    max-height: 80vh;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.3s ease-in-out;
+    z-index: 999;
+    border-top: 1px solid #ccc;
+    border-radius: 8px 8px 0 0;
+    overflow-y: auto;
+}
+
+.staff-list-container.open {
+    bottom: -650px !important;
+}
+
+.toggle-arrow {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a6fa5;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
