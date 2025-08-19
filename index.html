@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расстановка персонала</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header d-flex justify-content-between align-items-center">
+        <h1 class="h5 mb-0">Расстановка персонала на смену</h1>
+        <div class="d-flex align-items-center">
+            <span class="total-counter me-3">Расставлено: <span id="totalAssignedCounter">0</span>/<span id="totalAvailableCounter">0</span></span>
+            <span id="syncStatus" class="sync-status" title="Статус синхронизации">
+                <i class="bi bi-circle-fill"></i> <span>Локальная версия</span>
+            </span>
+            <button id="toggleCompact" class="btn btn-sm btn-light me-2">
+                <i class="bi bi-arrows-angle-contract"></i>
+            </button>
+            <button id="archiveBtn" class="btn btn-sm btn-light me-2">
+                <i class="bi bi-archive"></i> Архив
+            </button>
+            <button id="saveBtn" class="btn btn-sm btn-light me-2">
+                <i class="bi bi-save"></i> Сохранить
+            </button>
+            <button id="resetBtn" class="btn btn-sm btn-outline-light">
+                <i class="bi bi-arrow-counterclockwise"></i> Сбросить
+            </button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="staff-assignment">
+            <h3 class="h6 mb-3">Расстановка персонала</h3>
+            <div class="table-responsive">
+                <table id="assignmentTable">
+                    <thead>
+                        <tr>
+                            <th class="section-column">Участок</th>
+                            <th class="employees-column">Сотрудники</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignmentBody"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="staff-list-container">
+            <div class="staff-lists">
+                <div class="mb-4">
+                    <div class="section-title">
+                        Доступные сотрудники <span class="counter" id="availableCounter">0</span>
+                    </div>
+                    <div id="availableStaff" class="dropzone"></div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="section-title">
+                        Отпуск <span class="counter" id="vacationCounter">0</span>
+                    </div>
+                    <div id="vacationStaff" class="dropzone"></div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="section-title">
+                        Больничный <span class="counter" id="sickLeaveCounter">0</span>
+                    </div>
+                    <div id="sickLeaveStaff" class="dropzone"></div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="section-title">
+                        ДО <span class="counter" id="dayOffCounter">0</span>
+                    </div>
+                    <div id="dayOffStaff" class="dropzone"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальные окна -->
+    <div id="archiveModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Архив смен</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="archiveList"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="saveModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Сохранение смены</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Введите название смены:</p>
+                    <input type="text" id="shiftName" class="form-control form-control-sm" placeholder="Название смены">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Отмена</button>
+                    <button id="confirmSaveBtn" class="btn btn-primary btn-sm">
+                        <span id="saveBtnText">Сохранить</span>
+                        <span id="saveBtnSpinner" class="loading-spinner d-none"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="resetModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Подтверждение сброса</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы уверены, что хотите сбросить все данные?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Отмена</button>
+                    <button id="confirmResetBtn" class="btn btn-danger btn-sm">Сбросить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="editArchiveModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Редактирование смены</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Введите новое название:</p>
+                    <input type="text" id="editShiftName" class="form-control form-control-sm" placeholder="Новое название">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Отмена</button>
+                    <button id="saveEditBtn" class="btn btn-primary btn-sm">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <!-- Подключаем библиотеки -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
