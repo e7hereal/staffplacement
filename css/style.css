@@ -258,6 +258,11 @@ th {
     .compact-mode .staff-list-container.state-2 {
         bottom: -58% !important;
     }
+
+    .compact-mode th, .compact-mode td {
+        padding: 0 2px;
+        font-size: 15px;
+    }
 }
 
 /* Основной контейнер с кнопками и счетчиками */
