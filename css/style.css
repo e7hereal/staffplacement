@@ -190,7 +190,7 @@ th {
 }
 
 .compact-mode th, .compact-mode td {
-    padding: 1px;
+    padding: 0 5px;
     font-size: 15px;
 }
 
