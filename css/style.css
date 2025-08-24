@@ -172,7 +172,7 @@ th {
 
 .compact-mode .employee {
     padding: 0px 5px;
-    font-size: 10px;
+    font-size: 14px;
     margin: 1px;
 }
 
@@ -264,7 +264,7 @@ th {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: -250px;
+    bottom: 0%;
     max-height: 80vh;
     background-color: white;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
@@ -276,7 +276,7 @@ th {
 }
 
 .staff-list-container.open {
-    bottom: -650px !important;
+    bottom: -34% !important;
 }
 
 .toggle-arrow {
