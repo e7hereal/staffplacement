@@ -733,10 +733,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.getElementById('toggleStaffList');
     const icon = toggleBtn.querySelector('i');
 
+    // Текущие состояния: 0 - открыто, 1 - ниже, 2 - ещё ниже
+    let state = 0;
+
     toggleBtn.addEventListener('click', () => {
-        staffContainer.classList.toggle('open');
-        icon.classList.toggle('bi-chevron-up');
-        icon.classList.toggle('bi-chevron-down');
+        // Убираем все классы состояний
+        staffContainer.classList.remove('state-0', 'state-1', 'state-2');
+
+        // Переходим к следующему состоянию
+        state = (state + 1) % 3;
+
+        // Добавляем класс текущего состояния
+        staffContainer.classList.add(`state-${state}`);
+
+        // Меняем иконку в зависимости от состояния (пример)
+        switch(state) {
+            case 0:
+                icon.classList.remove('bi-chevron-down', 'bi-chevron-double-down');
+                icon.classList.add('bi-chevron-up');
+                break;
+            case 1:
+                icon.classList.remove('bi-chevron-up', 'bi-chevron-double-down');
+                icon.classList.add('bi-chevron-down');
+                break;
+            case 2:
+                icon.classList.remove('bi-chevron-up', 'bi-chevron-down');
+                icon.classList.add('bi-chevron-double-down');
+                break;
+        }
     });
 });
 
