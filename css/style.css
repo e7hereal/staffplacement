@@ -185,7 +185,7 @@ th {
 }
 
 .compact-mode .dropzone {
-    padding: 5px;
+    padding: 0px;
     min-height: 30px;
 }
 
