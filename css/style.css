@@ -254,6 +254,10 @@ th {
     .staff-list-container.state-2 {
         bottom: -96% !important;
     }
+    
+    .compact-mode .staff-list-container.state-2 {
+        bottom: -63% !important;
+    }
 }
 
 /* Основной контейнер с кнопками и счетчиками */
