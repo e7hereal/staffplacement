@@ -289,6 +289,10 @@ th {
     bottom: -51%;
 }
 
+.compact-mode .staff-list-container.state-2 {
+    bottom: -42%;
+}
+
 .toggle-arrow {
     position: absolute;
     left: 50%;
